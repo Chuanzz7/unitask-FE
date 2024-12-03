@@ -42,10 +42,7 @@ const close = () => {
             <i class="text-blue-500 pi pi-angle-left"></i>
           </button>
           <h5 class="mb-0 dark:text-white/80">{{ model.subjectName }}</h5>
-          <button v-if="!props.isLecturer && props.disabled" type="button"
-                  class="inline-block px-8 py-2  ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">
-            Enroll
-          </button>
+
         </div>
       </div>
       <div class="flex-auto px-6">

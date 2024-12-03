@@ -68,14 +68,11 @@ watch(
     <SmallLists class="h-full flex-row flex-grow mx-3 mb-3 min-w-[30%] basis-[30%]" title="Assignment"
                 details-page="assignmentDetails"
                 update-page="assignmentUpdate"
-                :editable="auth.isLecturer"
-                :add-permission="auth.isLecturer"
                 :content="state.listData.content"></SmallLists>
     <AssignmentForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[60%]"
                     disabled
                     v-if="currentValue != null"
                     v-model="state.formData.content"
-                    :isLecturer="auth.isLecturer"
                     :loading="state.formData.isLoading"></AssignmentForm>
   </div>
 </template>

@@ -1,2 +1,2 @@
-export const LOGIN = "/auth/login";
-export const SIGNUP = "/auth/signUp";
+export const LOGIN = "/auth/login/lecturer";
+export const SIGNUP = "/auth/signUp/lecturer";

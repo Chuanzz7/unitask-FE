@@ -9,7 +9,6 @@ import FileInput from "@/components/form/FileInput.vue";
 const router = useRouter();
 const props = defineProps({
   disabled: Boolean,
-  isLecturer: Boolean,
   loading: Boolean,
 })
 const model = defineModel({})
@@ -43,7 +42,7 @@ const close = () => {
             <i class="text-blue-500 pi pi-angle-left"></i>
           </button>
           <h5 class="mb-0 dark:text-white/80">{{ model.assessmentName }}</h5>
-          <button v-if="!isLecturer" type="button"
+          <button type="button"
                   class="inline-block px-8 py-2  ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">
             Submit
           </button>
@@ -97,12 +96,8 @@ const close = () => {
         <p class="w-full leading-normal uppercase dark:text-white dark:opacity-60 text-sm ">Documents</p>
         <div class="flex flex-wrap justify-between">
           <div class="flex flex-col md:w-6/12">
-            <FileInput :is-lecturer="props.isLecturer" :disabled="disabled"
+            <FileInput :disabled="disabled"
                        label="Attached Document" v-model="model.attachedDocument"></FileInput>
-          </div>
-          <div v-if="!props.isLecturer" class="flex flex-col md:w-6/12">
-            <FileInput :is-lecturer="props.isLecturer" :disabled="props.isLecturer"
-                       label="Uploaded Document" v-model="model.uploadedDocument" ></FileInput>
           </div>
         </div>
       </div>

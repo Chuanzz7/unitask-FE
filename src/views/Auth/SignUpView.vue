@@ -48,7 +48,7 @@ const submitSignUp = async () => {
     form.isLoading = false;
 
     //toast
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       toast.error("Bad Credential", {position: "top-center"});
     } else {
       toast.error("Something Wrong", {position: "top-center"});
@@ -117,9 +117,8 @@ const submitSignUp = async () => {
               >
                 <span
                     class="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-blue-500 to-violet-500 opacity-60"></span>
-                <h4 class="z-20 mt-12 font-bold text-white">"Attention is the new currency"</h4>
-                <p class="z-20 text-white">The more effortless the writing looks, the more effort the writer actually
-                  put into the process.</p>
+                <h4 class="z-20 mt-12 font-bold text-white">Lecturer Portal</h4>
+                <p class="z-20 text-white">Knowledge shared is knowledge multiplied—teach with passion, and the world becomes your classroom.</p>
               </div>
             </div>
           </div>

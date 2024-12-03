@@ -7,7 +7,7 @@ import router from "@/router/index.js";
 import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 
 const props = defineProps({
-  editable: false,
+  editable:Boolean,
   title: String,
   detailsPage: String,
   newPage: String,
@@ -55,7 +55,7 @@ const filter = (value) => {
         </div>
         <div class="flex w-1/2 max-w-full px-3 text-right">
           <SearchBar @search-input="filter"></SearchBar>
-          <button v-if="editable && newPage" class="flex py-2 font-semibold text-blue-500 " @click="newId()">
+          <button v-if="newPage" class="flex py-2 font-semibold text-blue-500 " @click="newId()">
             <i class="text-lg pi pi-plus my-1 mr-1"></i>
             <span>Add</span>
           </button>

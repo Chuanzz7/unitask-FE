@@ -3,14 +3,12 @@
 import SmallLists from "@/components/small-list/Small-lists.vue";
 import {computed, onMounted, reactive, ref, watch} from "vue";
 import SubjectForm from "@/components/subject/SubjectForm.vue";
-import {useAuthStore} from "@/stores/AuthStore.js";
 import {apiClient, GET_SUBJECT, LIST_SUBJECT} from "@/api/index.js";
 import {useRoute} from "vue-router";
 import {useToast} from "vue-toastification";
 
 const route = useRoute();
 const currentValue = computed(() => route.params.id);
-const auth = useAuthStore();
 const toast = useToast();
 
 const id = ref(route.params.id);
@@ -82,12 +80,11 @@ watch(
                 details-page="subjectDetails"
                 new-page="subjectCreate"
                 update-page="subjectUpdate"
-                :editable="auth.isLecturer"
+                editable
                 :content="state.listData.content"
                 :loading="state.listData.isLoading"></SmallLists>
     <SubjectForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[60%]"
                  disabled
-                 :is-lecturer="auth.isLecturer"
                  v-if="currentValue != null"
                  v-model="state.formData.content"
                  :loading="state.formData.isLoading"></SubjectForm>
