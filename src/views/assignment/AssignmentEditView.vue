@@ -28,6 +28,7 @@ const update = async () => {
       toast.success("Successfully Updated!", {position: POSITION.TOP_CENTER});
     }
   } catch (error) {
+    console.log(error)
     toast.error("Something Wrong", {position: POSITION.TOP_CENTER});
   } finally {
     router.push(pathnames.SubjectView);

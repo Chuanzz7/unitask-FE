@@ -5,13 +5,11 @@ import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 import TextInput from "@/components/form/TextInput.vue";
 import TextArea from "@/components/form/TextArea.vue";
 import pathnames from "@/router/pathnames.js";
-import {onMounted} from "vue";
 
 const router = useRouter();
 const props = defineProps({
   disabled: Boolean,
   loading: Boolean,
-  isLecturer:Boolean,
 })
 const model = defineModel()
 
@@ -31,7 +29,7 @@ const close = () => {
 <template>
   <div
       class="relative flex-wrap pb-5 overflow-y-auto break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-    <PulseLoader class="h-full w-full flex justify-center items-center" v-if="props.loading"
+    <PulseLoader class="m-5 flex justify-center items-center" v-if="props.loading"
                  color="#825ee4"></PulseLoader>
     <div v-else>
       <div class="mb-4 border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 pb-0">
@@ -41,7 +39,7 @@ const close = () => {
                   class="pr-2 leading-normal text-center align-middle">
             <i class="text-blue-500 pi pi-angle-left"></i>
           </button>
-          <h5 class="mb-0 dark:text-white/80">{{ model.subjectName }}</h5>
+          <h5 class="mb-0 dark:text-white/80">{{ model.name }}</h5>
 
         </div>
       </div>
@@ -50,9 +48,9 @@ const close = () => {
         <p class="leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Subject Information</p>
         <div class="flex flex-wrap -mx-3">
           <TextInput :disabled="props.disabled" class="md:w-6/12" label="Subject Code"
-                     v-model="model.subjectCode"></TextInput>
+                     v-model="model.code"></TextInput>
           <TextInput :disabled="props.disabled" class="md:w-6/12" label="Subject Name"
-                     v-model="model.subjectName"></TextInput>
+                     v-model="model.name"></TextInput>
           <TextInput :disabled="props.disabled" class="md:w-6/12" label="Course" v-model="model.course"></TextInput>
           <TextInput :disabled="props.disabled" type="number" class="md:w-6/12" label="No. of Credit Hour"
                      v-model.number="model.creditHour"></TextInput>

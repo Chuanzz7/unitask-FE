@@ -5,31 +5,42 @@ import {computed, onMounted, reactive, ref, watch} from "vue";
 import SubjectForm from "@/components/subject/SubjectForm.vue";
 import {apiClient, GET_SUBJECT, LIST_SUBJECT} from "@/api/index.js";
 import {useRoute} from "vue-router";
-import {useToast} from "vue-toastification";
+import {POSITION, useToast} from "vue-toastification";
 
 const route = useRoute();
 const currentValue = computed(() => route.params.id);
 const toast = useToast();
 
 const id = ref(route.params.id);
-const model = defineModel({
-  search: String
-})
+
 const state = reactive({
+  search: "",
   listData: {isLoading: true, content: []},
   formData: {isLoading: true, content: {}},
 })
 
 const listingApi = async () => {
   try {
-    const response = await apiClient.get(LIST_SUBJECT);
+    const response = await apiClient.get(LIST_SUBJECT, {
+      params: {
+        page: 1,
+        pageSize: 999,
+        search: state.search,
+      },
+    });
     state.listData.isLoading = false;
     state.listData.content = [];
-    response.data.map((x) => {
-      state.listData.content.push({id: x.id, title: x.subjectName, description: x.lecturerName, code: x.subjectCode})
+    response.data.content.map((x) => {
+      state.listData.content.push({
+        id: x.id,
+        title: x.name,
+        description: x.lecturerName,
+        code: x.code,
+      });
     });
   } catch (error) {
-    toast.error("Something Wrong", {position: "top-center"});
+    console.log(error)
+    toast.error("Something Wrong", {position: POSITION.TOP_CENTER});
   }
 }
 
@@ -39,8 +50,8 @@ const subjectApi = async (id) => {
       const response = await apiClient.get(`${GET_SUBJECT}${id}`);
       state.formData.isLoading = false;
       let x = response.data;
-      state.formData.content.subjectName = x.subjectName;
-      state.formData.content.subjectCode = x.subjectCode;
+      state.formData.content.name = x.name;
+      state.formData.content.code = x.code;
       state.formData.content.course = x.course;
       state.formData.content.creditHour = x.creditHour;
       state.formData.content.description = x.description;
@@ -51,10 +62,10 @@ const subjectApi = async (id) => {
       state.formData.content.lecturerOffice = x.lecturerName;
       state.formData.content.assessment = []
       x.assessment.map((x) => {
-        state.formData.content.assessment.push({name: x.assessmentName, weightage: x.assessmentWeightage});
+        state.formData.content.assessment.push({name: x.name, weightage: x.weightage});
       })
     } catch (error) {
-      toast.error("Something Wrong", {position: "top-center"});
+      toast.error("Something Wrong", {position: POSITION.TOP_CENTER});
     }
   }
 }
@@ -81,6 +92,8 @@ watch(
                 new-page="subjectCreate"
                 update-page="subjectUpdate"
                 editable
+                v-model="state.search"
+                :search="listingApi"
                 :content="state.listData.content"
                 :loading="state.listData.isLoading"></SmallLists>
     <SubjectForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[60%]"

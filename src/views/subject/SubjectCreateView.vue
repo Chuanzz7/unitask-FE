@@ -46,7 +46,7 @@ const create = async () => {
     }
 
     formData.assessment.map((x) => {
-      payload.assessment.push({assessmentName: x.name, assessmentWeightage: x.weightage});
+      payload.assessment.push({name: x.name, weightage: x.weightage});
     })
 
     const response = await apiClient.post(POST_SUBJECT, payload);

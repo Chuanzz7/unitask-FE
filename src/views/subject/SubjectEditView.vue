@@ -2,40 +2,36 @@
 
 import SubjectForm from "@/components/subject/SubjectForm.vue";
 import AppButton from "@/components/AppButton.vue";
-import {reactive, watch} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {apiClient, GET_SUBJECT, PUT_SUBJECT} from "@/api/index.js";
 import {POSITION, useToast} from "vue-toastification";
 import {useRoute, useRouter} from "vue-router";
 import pathnames from "@/router/pathnames.js";
-import {useAuthStore} from "@/stores/AuthStore.js";
 
 const toast = useToast();
 const router = useRouter();
 const route = useRoute();
-const auth = useAuthStore()
-
+const isLoading = ref(true)
 const formData = reactive({
-  id: Number,
-  isDisabled: false,
-  subjectName: String,
-  subjectCode: String,
-  course: String,
-  creditHour: Number,
-  description: String,
-  learningOutcome: String,
-  lecturerName: String,
-  lecturerContact: String,
-  lecturerEmail: String,
-  lecturerOffice: String,
-  assessment:
-      [{name: String, weightage: String}],
+  id: 0,
+  subjectName: "",
+  subjectCode: "",
+  course: "",
+  creditHour: "",
+  description: "",
+  learningOutcome: "",
+  lecturerName: "",
+  lecturerContact: "",
+  lecturerEmail: "",
+  lecturerOffice: "",
+  assessment: [],
 })
 
 const update = async () => {
   try {
     const payload = {
-      subjectCode: formData.subjectCode,
-      subjectName: formData.subjectName,
+      code: formData.code,
+      name: formData.name,
       course: formData.course,
       creditHour: formData.creditHour,
       description: formData.description,
@@ -49,7 +45,7 @@ const update = async () => {
     }
 
     formData.assessment.map((x) => {
-      payload.assessment.push({assessmentName: x.name, assessmentWeightage: x.weightage});
+      payload.assessment.push({id: x.id, name: x.name, weightage: x.weightage});
     })
 
     const response = await apiClient.put(`${PUT_SUBJECT}${formData.id}`, payload);
@@ -63,14 +59,15 @@ const update = async () => {
   }
 }
 
-const read = async (id) => {
+const readApi = async (id) => {
   if (id != null) {
     try {
       const response = await apiClient.get(`${GET_SUBJECT}${id}`);
-      formData.isLoading = false;
+      isLoading.value = false;
       let x = response.data;
-      formData.subjectName = x.subjectName;
-      formData.subjectCode = x.subjectCode;
+      formData.id = x.id;
+      formData.name = x.name;
+      formData.code = x.code;
       formData.course = x.course;
       formData.creditHour = x.creditHour;
       formData.description = x.description;
@@ -81,7 +78,7 @@ const read = async (id) => {
       formData.lecturerOffice = x.lecturerName;
       formData.assessment = []
       x.assessment.map((x) => {
-        formData.assessment.push({name: x.assessmentName, weightage: x.assessmentWeightage});
+        formData.assessment.push({id: x.id, name: x.name, weightage: x.weightage});
       })
     } catch (error) {
       toast.error("Something Wrong", {position: "top-center"});
@@ -89,21 +86,16 @@ const read = async (id) => {
   }
 }
 
-watch(
-    () => route.params.id,
-    (newId) => {
-      formData.id = newId;
-      read(newId); // Fetch data when the ID changes
-    },
-    {immediate: true} // Trigger on initial mount
-);
+onMounted(() => {
+  readApi(route.params.id);
+})
 
 </script>
 
 
 <template>
   <div class="flex-col w-full justify-items-center">
-    <SubjectForm v-model="formData"></SubjectForm>
+    <SubjectForm :loading="isLoading" v-model="formData"></SubjectForm>
     <AppButton @click="update" class="mb-5">Update</AppButton>
   </div>
 </template>

@@ -7,11 +7,12 @@ import router from "@/router/index.js";
 import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 
 const props = defineProps({
-  editable:Boolean,
+  search: Function,
+  editable: Boolean,
   title: String,
   detailsPage: String,
   newPage: String,
-  updatePage:String,
+  updatePage: String,
   loading: Boolean,
   content: [{
     id: Number,
@@ -20,6 +21,8 @@ const props = defineProps({
     code: String,
   }]
 })
+
+const model = defineModel();
 
 const state = reactive({
   isActiveId: Number,
@@ -37,12 +40,9 @@ const getId = (id) => {
 }
 
 const newId = () => {
-  router.push({name: props.newPage, params: {id: "new"}})
+  router.push({name:props.newPage})
 }
 
-const filter = (value) => {
-  state.search = value;
-}
 </script>
 
 <template>
@@ -54,7 +54,7 @@ const filter = (value) => {
           <h5 class="mb-0 dark:text-white">{{ title }}</h5>
         </div>
         <div class="flex w-1/2 max-w-full px-3 text-right">
-          <SearchBar @search-input="filter"></SearchBar>
+          <SearchBar :search="search" v-model="model"></SearchBar>
           <button v-if="newPage" class="flex py-2 font-semibold text-blue-500 " @click="newId()">
             <i class="text-lg pi pi-plus my-1 mr-1"></i>
             <span>Add</span>
@@ -65,9 +65,13 @@ const filter = (value) => {
     <PulseLoader class="h-full w-full flex justify-center items-center" v-if="props.loading"
                  color="#825ee4"></PulseLoader>
     <div v-else class="max-h-full overflow-y-auto break-words bg-clip-border">
-      <SmallList v-for="content in props.content" @click="getId(content.id)" :data="content"
-                 :isActive="content.id === state.isActiveId" :update-page="props.updatePage"
-                 :details-page="props.detailsPage" :editable="props.editable"></SmallList>
+      <SmallList v-for="content in props.content"
+                 @click="getId(content.id)"
+                 :data="content"
+                 :isActive="content.id === state.isActiveId"
+                 :update-page="props.updatePage"
+                 :details-page="props.detailsPage"
+                 :editable="props.editable"></SmallList>
     </div>
   </div>
 </template>
