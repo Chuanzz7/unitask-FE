@@ -13,6 +13,7 @@ const router = useRouter();
 const route = useRoute();
 
 const formData = reactive({
+	id: 0,
 	name: "",
 	weightage: "",
 	assignmentMode: "",
@@ -47,9 +48,10 @@ const update = async () => {
 const read = async (id) => {
 	if (id != null) {
 		try {
-			const response = await apiClient.get(`${GET_ASSESSMENT}${id}`);
+			const response = await apiClient.get(GET_ASSESSMENT(id));
 			let data = response.data;
 			let subject = data.subject;
+			formData.id = data.id;
 			formData.name = data.name;
 			formData.weightage = data.weightage;
 			formData.subjectName = subject.name;
@@ -60,7 +62,7 @@ const read = async (id) => {
 			}
 			formData.lecturerInstruction = data.lecturerInstruction;
 			formData.assessmentMarkingRubrics = data.assessmentMarkingRubrics || [{}];
-			formData.attachedDocument = data.attachedDocument || [];
+			formData.attachedDocument = data.attachedFile || [];
 			formData.isLoading = false;
 		} catch (error) {
 			toast.error("Something Wrong", { position: POSITION.TOP_CENTER });
@@ -71,7 +73,7 @@ const read = async (id) => {
 watch(
 	() => route.params.id,
 	(newId) => {
-		formData.id = newId;
+		formData.id = Number(newId);
 		read(newId); // Fetch data when the ID changes
 	},
 	{ immediate: true }, // Trigger on initial mount

@@ -74,7 +74,8 @@ const close = () => {
 							<span>Add</span>
 						</button>
 					</div>
-					<div v-for="(x, index) in model.assessmentMarkingRubrics" :key="index" class="flex flex-wrap -mx-3 -mb-3">
+					<div v-for="(x, index) in model.assessmentMarkingRubrics" :key="index"
+						 class="flex flex-wrap -mx-3 -mb-3">
            				 <TextArea :disabled="props.disabled" v-model="x.criteria" class="md:w-8/12"
 								   :label="'Criteria ' + (index+1) "></TextArea>
 						<TextInput :disabled="props.disabled" v-model="x.weightage" class="md:w-3/12 h-full"
@@ -92,11 +93,13 @@ const close = () => {
 				<p class="w-full leading-normal uppercase dark:text-white dark:opacity-60 text-sm ">Documents</p>
 				<div class="flex flex-wrap justify-between">
 					<div class="flex flex-col md:w-6/12">
-						<FileInput :upload-api="PUT_ASSESSMENT_FILE"
-								   :delete-api="DELETE_ASSESSMENT_FILE"
-								   :disabled="disabled"
-								   label="Attached Document"
-								   v-model="model.attachedDocument"></FileInput>
+						<FileInput
+							:caseId="model.id"
+							:upload-api="PUT_ASSESSMENT_FILE"
+							:delete-api="DELETE_ASSESSMENT_FILE"
+							:disabled="disabled"
+							label="Attached Document"
+							v-model="model.attachedDocument"></FileInput>
 					</div>
 				</div>
 			</div>

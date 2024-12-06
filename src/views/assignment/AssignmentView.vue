@@ -6,6 +6,7 @@ import { useRoute } from "vue-router";
 import AssignmentForm from "@/components/assignment/AssignmentForm.vue";
 import { apiClient, GET_ASSESSMENT, LIST_ASSESSMENT } from "@/api/index.js";
 import { POSITION } from "vue-toastification";
+import moment from "moment";
 
 const route = useRoute();
 const currentValue = computed(() => route.params.id);
@@ -35,7 +36,7 @@ const listingApi = async () => {
 				id: x.id,
 				title: x.name,
 				description: x.subjectName,
-				code: x.dueDate,
+				code:  moment(x.dueDate).format("DD/MM/yyyy"),
 				color: x.color,
 			});
 		});
@@ -46,12 +47,13 @@ const listingApi = async () => {
 };
 
 const assignmentApi = async (id) => {
-	if(id != null) {
+	if (id != null) {
 		try {
-			const response = await apiClient.get(`${GET_ASSESSMENT}${id}`);
+			const response = await apiClient.get(GET_ASSESSMENT(id));
 			state.formData.isLoading = false;
 			let data = response.data;
 			let subject = data.subject;
+			state.formData.content.id = data.id;
 			state.formData.content.name = data.name;
 			state.formData.content.weightage = data.weightage;
 			state.formData.content.subjectName = subject.name;
@@ -62,7 +64,7 @@ const assignmentApi = async (id) => {
 			}
 			state.formData.content.lecturerInstruction = data.lecturerInstruction;
 			state.formData.content.assessmentMarkingRubrics = data.assessmentMarkingRubrics || [{}];
-			state.formData.content.attachedDocument = data.attachedDocument || [];
+			state.formData.content.attachedDocument = data.attachedFile || [];
 		} catch (error) {
 			console.log(error);
 			toast.error("Something Wrong", { position: POSITION.TOP_CENTER });
@@ -92,6 +94,8 @@ watch(
 					editable
 					details-page="assignmentDetails"
 					update-page="assignmentUpdate"
+					v-model="state.search"
+					:search="listingApi"
 					:content="state.listData.content"></SmallLists>
 		<AssignmentForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[60%]"
 						disabled

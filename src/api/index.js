@@ -1,8 +1,10 @@
-export * from './auth';
-export * from './subject';
-export * from './assessment.js';
-import axios from 'axios';
+import { POSITION } from "vue-toastification";
+
+export * from "./auth";
+export * from "./subject";
+export * from "./assessment.js";
+import axios from "axios";
 
 export const apiClient = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+	baseURL: import.meta.env.VITE_API_BASE_URL,
 });
