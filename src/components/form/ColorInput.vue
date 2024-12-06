@@ -30,10 +30,14 @@ const closeColor = () => {
 		:style="{backgroundColor: model}"
 		:class="[open
 				? 'absolute top-0 right-0 bottom-auto left-auto m-5 '
-				: 'inline-block px-5 py-2 ml-auto text-xs tracking-tight-rem hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in shadow-md bg-150 bg-x-25 '
-				 , 'text-center text-white rounded-lg font-bold leading-normal align-middle border-0 ']">
+				: 'inline-block px-5 py-2 ml-auto text-xs tracking-tight-rem  text-sm ease-in bg-150 bg-x-25 ',
+				 disabled
+				 ?''
+				 :'shadow-md  hover:shadow-xs  hover:-translate-y-px active:opacity-85'
+				 ,'text-center text-white rounded-lg font-bold leading-normal align-middle border-0 '
+				 ]">
 		<i class="pi pi-bookmark"></i>
-		Color
+		<span v-if="!props.disabled" class="ml-1">Color</span>
 		<ColorPicker
 			v-if="open"
 			format="hex"
