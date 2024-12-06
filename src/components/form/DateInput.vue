@@ -21,10 +21,11 @@ const format = (date) => {
 				   class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700
              dark:text-white/80">{{ label }}</label>
 			<VueDatePicker
+				:disabled="disabled"
 				:enable-time-picker="false"
 				:format="format"
 				v-model="modal"
-				:class="[disabled? 'b  order-gray-50 bg-gray-50 '
+				:class="[disabled? 'border-gray-50 bg-gray-50 '
              :' border-gray-300 bg-white '
              ,'focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block appearance-none ' +
              'rounded-lg border border-solid bg-clip-padding font-normal text-gray-700 outline-none ' +
@@ -36,9 +37,12 @@ const format = (date) => {
 
 <style scoped>
 >>> .dp__input {
-	padding: 0.5rem 0.75rem 0.5rem 2rem;
+	padding: 0.45rem 0.75rem 0.45rem 2rem;
 	background-clip: padding-box;
 	border: 0 !important;
 	border-radius: 0.5rem /* 8px */;
+	background-color: transparent;
+	font-family: inherit;
+	line-height: inherit;
 }
 </style>

@@ -18,7 +18,7 @@ const formData = reactive({
 	assignmentMode: "",
 	dueDate: new Date(),
 	lecturerInstruction: "",
-	markingRubric: [{}],
+	assessmentMarkingRubrics: [{}],
 	attachedDocument: [],
 });
 
@@ -30,7 +30,7 @@ const update = async () => {
 			assignmentMode: formData.assignmentMode,
 			dueDate: formData.dueDate,
 			lecturerInstruction: formData.lecturerInstruction,
-			assessmentMarkingRubric: formData.assessmentMarkingRubric,
+			assessmentMarkingRubrics: formData.assessmentMarkingRubrics,
 		};
 		const response = await apiClient.put(`${PUT_ASSESSMENT}${formData.id}`, payload);
 		if (response.status === 200) {
@@ -59,11 +59,11 @@ const read = async (id) => {
 				formData.dueDate = new Date(data.dueDate);
 			}
 			formData.lecturerInstruction = data.lecturerInstruction;
-			formData.assessmentMarkingRubric = data.assessmentMarkingRubric;
+			formData.assessmentMarkingRubrics = data.assessmentMarkingRubrics || [{}];
 			formData.attachedDocument = data.attachedDocument || [];
 			formData.isLoading = false;
 		} catch (error) {
-			toast.error("Something Wrong", { position: "top-center" });
+			toast.error("Something Wrong", { position: POSITION.TOP_CENTER });
 		}
 	}
 };

@@ -32,11 +32,11 @@ const routeToEdit = () => {
   ? 'bg-gray-200'
   : ''
   ,'flex-auto m-3 pr-4 hover:bg-gray-200 rounded-lg']">
-		<div class="relative flex justify-between px-2 py-2 pl-0  border-0 rounded-t-inherit text-inherit rounded-xl">
-			<div class="-my-2 pr-2 mr-1 rounded-l"
+		<div @click="routeToDetails" class="relative flex justify-between px-2 py-2 pl-0  border-0 rounded-t-inherit text-inherit rounded-xl">
+			<div class="-my-2 pr-3 mr-2 rounded-l"
 				 :style="{backgroundColor: props.data.color}"
 			></div>
-			<div class="w-[93%] flex justify-between" @click="routeToDetails">
+			<div class="w-[93%] flex justify-between">
 				<div class="flex truncate flex-col">
 					<h6 class="truncate mb-1 text-sm font-semibold leading-normal dark:text-white text-slate-700">
 						{{ data.title }}</h6>
@@ -50,12 +50,11 @@ const routeToEdit = () => {
             {{ data.code }}</span>
 				</div>
 			</div>
-
 			<div
 				class="flex leading-normal">
 				<button
-					class="dark:text-white cursor-pointer ease-in bg-150 text-sm active:opacity-85 hover:-translate-y-px tracking-tight-rem bg-x-25 text-slate-700"
-					@click="routeToEdit" v-if="editable && updatePage">
+					class="ml-1 dark:text-white cursor-pointer ease-in bg-150 text-sm active:opacity-85 hover:-translate-y-px tracking-tight-rem bg-x-25 text-slate-700"
+					@click.stop="routeToDetails" @click="routeToEdit" v-if="editable && updatePage">
 					<i class="text-sm pi pi-pencil"></i>
 				</button>
 			</div>

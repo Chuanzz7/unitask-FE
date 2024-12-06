@@ -16,14 +16,11 @@ const props = defineProps({
 const model = defineModel({});
 
 const addCriteria = () => {
-	if (model.value.markingRubric == null) {
-		model.value.markingRubric = [];
-	}
-	model.value.markingRubric.push({ criteriaName: "", criteriaWeightage: "" });
+	model.value.assessmentMarkingRubrics.push({ criteria: "", weightage: "" });
 };
 
 const removeCriteria = (index) => {
-	model.value.markingRubric.splice(index, 1);
+	model.value.assessmentMarkingRubrics.splice(index, 1);
 };
 
 const close = () => {
@@ -34,7 +31,6 @@ const close = () => {
 <template>
 	<div
 		class="relative flex-wrap pb-5 overflow-y-auto break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-		<!--    <PulseLoader class="h-full w-full flex justify-center items-center" v-if="props.loading" color="#825ee4"></PulseLoader>-->
 		<div>
 			<div class="mb-4 border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 pb-0">
 				<div class="flex items-center">
@@ -43,7 +39,7 @@ const close = () => {
 							class="pr-2 leading-normal text-center align-middle">
 						<i class="text-blue-500 pi pi-angle-left"></i>
 					</button>
-					<h5 class="mb-0 dark:text-white/80">{{ model.assessmentName }}</h5>
+					<h5 class="mb-0 dark:text-white/80">{{ model.name }}</h5>
 				</div>
 			</div>
 
@@ -78,10 +74,10 @@ const close = () => {
 							<span>Add</span>
 						</button>
 					</div>
-					<div v-for="(x, index) in model.markingRubric" :key="index" class="flex flex-wrap -mx-3 -mb-3">
-           				 <TextArea :disabled="props.disabled" v-model="x.criteriaName" class="md:w-8/12"
+					<div v-for="(x, index) in model.assessmentMarkingRubrics" :key="index" class="flex flex-wrap -mx-3 -mb-3">
+           				 <TextArea :disabled="props.disabled" v-model="x.criteria" class="md:w-8/12"
 								   :label="'Criteria ' + (index+1) "></TextArea>
-						<TextInput :disabled="props.disabled" v-model="x.criteriaWeightage" class="md:w-3/12 h-full"
+						<TextInput :disabled="props.disabled" v-model="x.weightage" class="md:w-3/12 h-full"
 								   :label="'Weightage ' + (index+1)"></TextInput>
 						<div v-if="!(props.disabled)" class="md:w-1/12 py-10 font-semibold text-blue-500 ">
 							<button @click="removeCriteria(index)">

@@ -4,7 +4,7 @@ import SmallLists from "@/components/small-list/Small-lists.vue";
 import { computed, onMounted, reactive, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import AssignmentForm from "@/components/assignment/AssignmentForm.vue";
-import { apiClient, LIST_ASSESSMENT } from "@/api/index.js";
+import { apiClient, GET_ASSESSMENT, LIST_ASSESSMENT } from "@/api/index.js";
 import { POSITION } from "vue-toastification";
 
 const route = useRoute();
@@ -46,18 +46,28 @@ const listingApi = async () => {
 };
 
 const assignmentApi = async (id) => {
-	state.formData.formLoading = false;
-	state.formData.content.id = id;
-	state.formData.content.assessmentName = "Test One";
-	state.formData.content.assessmentWeightage = "20%";
-	state.formData.content.assessmentMode = "Group";
-	state.formData.content.dueDate = "20/12/2024";
-	state.formData.content.lecturerInstruction = "a\na\na\na\na\na\na\na\na\na\na\na";
-	state.formData.content.subjectCode = "Test";
-	state.formData.content.subjectName = "Code Camp";
-	state.formData.content.markingRubric = [{ criteriaName: "Test", criteriaWeightage: "20%" }];
-	state.formData.content.uploadedDocument = [{ fileName: "Mid term.pdf", url: "www.google.com" }];
-	state.formData.content.attachedDocument = [{ fileName: "Mid term.pdf", url: "www.google.com" }];
+	if(id != null) {
+		try {
+			const response = await apiClient.get(`${GET_ASSESSMENT}${id}`);
+			state.formData.isLoading = false;
+			let data = response.data;
+			let subject = data.subject;
+			state.formData.content.name = data.name;
+			state.formData.content.weightage = data.weightage;
+			state.formData.content.subjectName = subject.name;
+			state.formData.content.subjectCode = subject.code;
+			state.formData.content.assignmentMode = data.assignmentMode;
+			if (data.dueDate != null) {
+				state.formData.content.dueDate = new Date(data.dueDate);
+			}
+			state.formData.content.lecturerInstruction = data.lecturerInstruction;
+			state.formData.content.assessmentMarkingRubrics = data.assessmentMarkingRubrics || [{}];
+			state.formData.content.attachedDocument = data.attachedDocument || [];
+		} catch (error) {
+			console.log(error);
+			toast.error("Something Wrong", { position: POSITION.TOP_CENTER });
+		}
+	}
 };
 
 onMounted(() => {
