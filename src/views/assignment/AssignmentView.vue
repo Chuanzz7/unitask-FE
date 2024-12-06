@@ -36,7 +36,7 @@ const listingApi = async () => {
 				id: x.id,
 				title: x.name,
 				description: x.subjectName,
-				code:  moment(x.dueDate).format("DD/MM/yyyy"),
+				code: x.dueDate == null ? "" : moment(x.dueDate).format("DD/MM/yyyy"),
 				color: x.color,
 			});
 		});
