@@ -5,7 +5,7 @@ import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 import TextInput from "@/components/form/TextInput.vue";
 import TextArea from "@/components/form/TextArea.vue";
 import pathnames from "@/router/pathnames.js";
-import ColorInput from "@/components/ColorInput.vue";
+import ColorInput from "@/components/form/ColorInput.vue";
 
 const router = useRouter();
 const props = defineProps({

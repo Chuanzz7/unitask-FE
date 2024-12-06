@@ -4,19 +4,15 @@ import { ColorPicker } from "vue3-colorpicker";
 import { ref } from "vue";
 import { OnClickOutside } from "@vueuse/components";
 
-const model = defineModel(
-	"color",
-	{
-		type: String,
-		default: "#5e72e4",
-	},
-);
+const model = defineModel();
+
 const props = defineProps({
 	disabled: Boolean,
-})
+});
+
 const open = ref(null);
 const openColor = () => {
-	if(!props.disabled) {
+	if (!props.disabled) {
 		open.value = true;
 	}
 };
@@ -42,7 +38,7 @@ const closeColor = () => {
 			v-if="open"
 			format="hex"
 			is-widget
-			v-model:pureColor="model"
+			v-model:pure-color="model"
 			picker-type="chrome"
 			use-type="pure"
 			disable-history
