@@ -6,7 +6,7 @@ import pathnames from "@/router/pathnames.js";
 
 import taskEnums from "@/enums/taskEnums";
 
-import TaskFormCol from "@/components/task/TaskFormCol.vue";
+import TaskFormItem from "@/components/task/TaskFormItem.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -18,45 +18,28 @@ const form = reactive({
 	id: 0,
 	contents: [
 		{
-			name: taskEnums.BACKLOG,
+			name: taskEnums.TO_DO,
 			tickets: [
 				{
 					id: 1,
-					title: "Model Answer",
-					ticketNumber: "001",
-					storyPoints: 3,
-					assignee: "Assignee A, Assignee B",
+					content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown ",
 				},
 				{
 					id: 2,
-					title: "Create calendar, chat and email app pages",
-					ticketNumber: "002",
-					storyPoints: 1,
-					assignee: "Assignee B",
+					content:
+						"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley ozxczxczxasdasdasdasdasdasdasdasdasdasdasdz asdfajsgdfjh dhsgfjhagdhjsfg asdashjdfghjasgdf ashjdgfgwiueyri qw",
 				},
 			],
 		},
 		{
-			name: taskEnums.TO_DO,
+			name: taskEnums.COMPLETED,
 			tickets: [
 				{
 					id: 3,
-					title: "Model Answer",
-					ticketNumber: "003",
-					storyPoints: 1,
-					assignee: "Assignee A, Assignee B",
-				},
-				{
-					id: 4,
-					title: "Add authentication pages",
-					ticketNumber: "004",
-					storyPoints: 1,
-					assignee: "Assignee B",
+					content: "ba ba black ship",
 				},
 			],
 		},
-		{ name: taskEnums.IN_PROCESS, tickets: [] },
-		{ name: taskEnums.DONE, tickets: [] },
 	],
 });
 
@@ -80,10 +63,10 @@ onMounted(() => {
 					<i class="text-blue-500 pi pi-angle-left"></i>
 				</button>
 			</div>
+		</div>
 
-			<div v-if="form.isLoaded" class="flex flex-wrap items-start justify-center gap-2 mt-10">
-				<TaskFormCol v-for="content in form.contents" :key="content.id" :data="content"></TaskFormCol>
-			</div>
+		<div v-if="form.isLoaded" class="flex flex-col flex-wrap items-start justify-center px-6">
+			<TaskFormItem v-for="content in form.contents" :key="content.id" :data="content"></TaskFormItem>
 		</div>
 	</div>
 </template>

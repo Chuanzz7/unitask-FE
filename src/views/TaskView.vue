@@ -49,7 +49,7 @@ onMounted(() => {
 
 <template>
 	<div class="h-full flex flex-wrap max-w-full pb-4 transition-flex">
-		<TaskList class="h-full flex-grow mx-3 mb-3 min-w-[20%] basis-[20%]" title="Task" module="taskDetails" :content="state.listData"></TaskList>
-		<TaskForm class="h-full flex-grow mx-3 mb-3 basis-[70%]" v-if="currentValue != null" v-model="currentValue"></TaskForm>
+		<TaskList class="h-full flex-row flex-grow mx-3 mb-3 min-w-[30%] basis-[30%]" title="Task" module="taskDetails" :content="state.listData"></TaskList>
+		<TaskForm class="h-full flex-row flex-grow mx-3 mb-3 basis-[60%]" v-if="currentValue != null" v-model="currentValue"></TaskForm>
 	</div>
 </template>
