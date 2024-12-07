@@ -6,6 +6,8 @@ const props = defineProps({
 	name: String,
 	modelValue: String,
 	disabled: Boolean,
+	autoFocus: Boolean,
+	blurEvent: Function,
 });
 const textarea = useTemplateRef("textarea");
 const model = defineModel();
@@ -20,6 +22,7 @@ const adjustHeight = () => {
 
 onMounted(() => {
 	adjustHeight();
+	if (props.autoFocus) textarea.value.focus();
 });
 </script>
 
@@ -34,6 +37,7 @@ onMounted(() => {
 				@input="adjustHeight"
 				id="textarea-input"
 				ref="textarea"
+				@blur="props.blurEvent"
 				:class="[
 					disabled ? 'border-gray-50 bg-gray-50 ' : 'border-gray-300 bg-white ',
 					'resize-none overflow-hidden focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full ' +

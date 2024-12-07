@@ -47,12 +47,74 @@ const handleClose = () => {
 	router.push(pathnames.Task);
 };
 
-const getTaskDetails = async () => {};
+const getTaskDetails = async () => {
+	console.log("Fetch data id: ", id.value);
+};
+
+const addTask = (details) => {
+	const category = form.contents.filter((f) => f.name === taskEnums.TO_DO)[0];
+
+	if (category) {
+		category.tickets.push({
+			id: Date.now(),
+			content: details,
+		});
+	}
+};
+
+const onHandleTaskComplete = (id) => {
+	const toDoCategory = form.contents.filter((f) => f.name === taskEnums.TO_DO)[0];
+	const completedCategory = form.contents.filter((f) => f.name === taskEnums.COMPLETED)[0];
+
+	if (toDoCategory && completedCategory) {
+		const indexToMove = toDoCategory.tickets.findIndex((item) => item.id === id);
+
+		if (indexToMove !== -1) {
+			const [movedItem] = toDoCategory.tickets.splice(indexToMove, 1);
+			completedCategory.tickets.push(movedItem);
+		}
+	}
+};
+
+const onHandleTaskDelete = (id) => {
+	const toDoCategory = form.contents.filter((f) => f.name === taskEnums.TO_DO)[0];
+
+	if (toDoCategory) {
+		const indexToMove = toDoCategory.tickets.findIndex((item) => item.id === id);
+
+		if (indexToMove !== -1) {
+			toDoCategory.tickets.splice(indexToMove, 1);
+		}
+	}
+};
+
+const onHandleTaskReset = (id) => {
+	const toDoCategory = form.contents.filter((f) => f.name === taskEnums.TO_DO)[0];
+	const completedCategory = form.contents.filter((f) => f.name === taskEnums.COMPLETED)[0];
+
+	if (toDoCategory && completedCategory) {
+		const indexToMove = completedCategory.tickets.findIndex((item) => item.id === id);
+
+		if (indexToMove !== -1) {
+			const [movedItem] = completedCategory.tickets.splice(indexToMove, 1);
+			toDoCategory.tickets.push(movedItem);
+		}
+	}
+};
 
 onMounted(() => {
 	getTaskDetails();
 	form.isLoaded = true;
 });
+
+watch(
+	() => route.params.id,
+	(newId) => {
+		id.value = newId;
+		getTaskDetails(newId);
+	},
+	{ immediate: true }
+);
 </script>
 
 <template>
@@ -66,7 +128,15 @@ onMounted(() => {
 		</div>
 
 		<div v-if="form.isLoaded" class="flex flex-col flex-wrap items-start justify-center px-6">
-			<TaskFormItem v-for="content in form.contents" :key="content.id" :data="content"></TaskFormItem>
+			<TaskFormItem
+				v-for="content in form.contents"
+				:key="content.id"
+				:data="content"
+				:addTask="addTask"
+				:onHandleTaskDelete="onHandleTaskDelete"
+				:onHandleTaskComplete="onHandleTaskComplete"
+				:onHandleTaskReset="onHandleTaskReset"
+			></TaskFormItem>
 		</div>
 	</div>
 </template>
