@@ -11,7 +11,7 @@ import NotFoundView from "@/views/NotFoundView.vue";
 import Dashboard from "@/views/Dashboard.vue";
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
 import SubjectView from "@/views/subject/SubjectView.vue";
-import AnnouncementView from "@/views/AnnouncementView.vue";
+import AnnouncementView from "@/views/announcement/AnnouncementView.vue";
 import AssignmentView from "@/views/assignment/AssignmentView.vue";
 import GroupView from "@/views/GroupView.vue";
 import TaskView from "@/views/TaskView.vue";
@@ -64,6 +64,16 @@ const router = createRouter({
                     name: "announcement",
                     component: AnnouncementView,
                 },
+                {
+                    path: pathnames.Announcement + "/:id",
+                    name: "announcementDetails",
+                    component: AnnouncementView,
+                },
+                // {
+                //     path: pathnames.Announcement + "/new",
+                //     name: "announcementCreate",
+                //     component: AnnouncementCreateView,
+                // },
                 {
                     path: pathnames.SubjectView,
                     name: "subject",
