@@ -10,15 +10,23 @@ import NotFoundView from "@/views/NotFoundView.vue";
 
 import Dashboard from "@/views/Dashboard.vue";
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
-import SubjectView from "@/views/subject/SubjectView.vue";
+
 import AnnouncementView from "@/views/announcement/AnnouncementView.vue";
+import AnnouncementCreateView from "@/views/announcement/AnnouncementCreateView.vue";
+import AnnouncementEditView from "@/views/announcement/AnnouncementEditView.vue";
+
+import SubjectCreateView from "@/views/subject/SubjectCreateView.vue";
+import SubjectEditView from "@/views/subject/SubjectEditView.vue";
+import SubjectView from "@/views/subject/SubjectView.vue";
+
 import AssignmentView from "@/views/assignment/AssignmentView.vue";
+import AssignmentEditView from "@/views/assignment/AssignmentEditView.vue";
+
+
 import GroupView from "@/views/GroupView.vue";
 import TaskView from "@/views/TaskView.vue";
 import DocumentView from "@/views/DocumentView.vue";
-import SubjectCreateView from "@/views/subject/SubjectCreateView.vue";
-import SubjectEditView from "@/views/subject/SubjectEditView.vue";
-import AssignmentEditView from "@/views/assignment/AssignmentEditView.vue";
+
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -60,20 +68,25 @@ const router = createRouter({
                     component: Dashboard,
                 },
                 {
-                    path: pathnames.Announcement,
+                    path: pathnames.AnnouncementView,
                     name: "announcement",
                     component: AnnouncementView,
                 },
                 {
-                    path: pathnames.Announcement + "/:id",
+                    path: pathnames.AnnouncementView + "/:id",
                     name: "announcementDetails",
                     component: AnnouncementView,
                 },
-                // {
-                //     path: pathnames.Announcement + "/new",
-                //     name: "announcementCreate",
-                //     component: AnnouncementCreateView,
-                // },
+                {
+                    path: pathnames.AnnouncementView + "/new",
+                    name: "announcementCreate",
+                    component: AnnouncementCreateView,
+                },
+                {
+                    path: pathnames.AnnouncementView + "/update/:id",
+                    name: "announcementUpdate",
+                    component: AnnouncementEditView,
+                },
                 {
                     path: pathnames.SubjectView,
                     name: "subject",

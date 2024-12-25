@@ -7,7 +7,19 @@ const breadcrumbsItem = {
 	],
 	announcement: [
 		{ label: "Page", to: "/" },
-		{ label: "Announcement", to: pathnames.Announcement },
+		{ label: "Announcement", to: pathnames.AnnouncementView },
+	],
+	announcementDetails: [
+		{ label: "Page", to: "/" },
+		{ label: "Announcement", to: pathnames.AnnouncementView },
+	],
+	announcementCreate: [
+		{ label: "Page", to: "/" },
+		{ label: "Announcement", to: pathnames.AnnouncementView },
+	],
+	announcementUpdate: [
+		{ label: "Page", to: "/" },
+		{ label: "Announcement", to: pathnames.AnnouncementView },
 	],
 	subject: [
 		{ label: "Page", to: "/" },

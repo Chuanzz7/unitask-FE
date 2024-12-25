@@ -5,14 +5,13 @@ import PulseLoader from "vue-spinner/src/PulseLoader.vue";
 import TextInput from "@/components/form/TextInput.vue";
 import TextArea from "@/components/form/TextArea.vue";
 import pathnames from "@/router/pathnames.js";
-import ColorInput from "@/components/form/ColorInput.vue";
 import AppSelectInput from "@/components/form/AppSelectInput.vue";
-import {onMounted, reactive} from "vue";
+import {computed, onMounted, reactive} from "vue";
 import {apiClient, LIST_SUBJECT} from "@/api/index.js";
 import {POSITION} from "vue-toastification";
+import moment from "moment";
 
 const router = useRouter();
-
 const state = reactive({
   search: "",
   options: []
@@ -23,19 +22,20 @@ const props = defineProps({
   loading: Boolean,
 });
 
-const model = defineModel();
+const model = defineModel({});
 
 const close = () => {
-  router.push(pathnames.SubjectView);
+  router.push(pathnames.AnnouncementView);
 };
 
-const listingApi = async () => {
+const subjectListing = async () => {
   try {
     const response = await apiClient.get(LIST_SUBJECT, {
       params: {
         page: 1,
         pageSize: 999,
         search: state.search,
+        subjectId: model.value.subjectId
       },
     });
     state.options.content = [];
@@ -51,14 +51,18 @@ const listingApi = async () => {
   }
 };
 
+const date = computed(() => model.value.postedDate == null ? moment().format("DD/MM/yyyy") : moment(model.value.postedDate).format("DD/MM/yyyy"));
+const user = computed(() => model.value.lecturerName == null ? "-" : model.value.lecturerName);
+
 onMounted(() => {
-  listingApi();
+  console.log(model.value.subjectId)
+  subjectListing();
 })
 
 </script>
 <template>
   <div
-      class="relative flex-wrap pb-5 overflow-y-auto break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+      class="w-full relative flex-wrap pb-5 overflow-y-auto break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
     <PulseLoader class="m-5 flex justify-center items-center" v-if="props.loading"
                  color="#825ee4"></PulseLoader>
     <div v-else>
@@ -72,7 +76,6 @@ onMounted(() => {
           </button>
 
           <h5 class="mb-0 dark:text-white/80">{{ model.title }}</h5>
-          <ColorInput :disabled="props.disabled" v-model="model.color"></ColorInput>
         </div>
 
       </div>
@@ -80,22 +83,34 @@ onMounted(() => {
         <PulseLoader class="flex justify-center" v-if="props.loading" color="#825ee4"></PulseLoader>
 
         <p class="leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Announcement Information</p>
+
         <div class="flex flex-wrap -mx-3">
           <TextInput :disabled="props.disabled" label="Title"
                      v-model="model.title"></TextInput>
           <TextArea :disabled="props.disabled" class="md:w-full" label="Description"
                     v-model="model.description"></TextArea>
+          <TextInput
+              class="md:w-6/12"
+              disabled label="Posted Date"
+              v-model="date"></TextInput>
+
+          <TextInput
+              class="md:w-6/12"
+              disabled label="Posted By"
+              v-model="user"></TextInput>
         </div>
 
         <hr class="h-px mx-0 my-4 bg-transparent border-0 opacity-25 bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent "/>
+
         <p class="leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Subject Information</p>
-
-        <AppSelectInput label="Subject"
-                        :disabled="disabled"
-                        v-model="model.subjectId"
-                        :options="state.options">
-        </AppSelectInput>
-
+        <div class="flex flex-wrap -mx-3">
+          <AppSelectInput
+              label="Subject"
+              :disabled="disabled"
+              v-model="model.subjectId"
+              :options="state.options">
+          </AppSelectInput>
+        </div>
         <hr class="h-px mx-0 my-4 bg-transparent border-0 opacity-25 bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent "/>
       </div>
     </div>

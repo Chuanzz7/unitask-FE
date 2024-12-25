@@ -6,6 +6,7 @@ import {apiClient, GET_ANNOUNCEMENT, LIST_ANNOUNCEMENT} from "@/api/index.js";
 import {POSITION, useToast} from "vue-toastification";
 import {useRoute} from "vue-router";
 import AnnouncementForm from "@/components/announcement/AnnouncementForm.vue";
+import moment from "moment/moment.js";
 
 const route = useRoute();
 const currentValue = computed(() => route.params.id);
@@ -34,7 +35,7 @@ const listingApi = async () => {
       state.listData.content.push({
         id: x.id,
         title: x.title,
-        code: x.subjectCode,
+        code: x.postedDate == null ? "" : moment(x.postedDate).format("DD/MM/yyyy"),
         description: x.description,
         color: x.color,
       });
@@ -55,6 +56,8 @@ const announcementApi = async (id) => {
       state.formData.content.title = x.title;
       state.formData.content.description = x.description;
       state.formData.content.subjectId = x.subjectId;
+      state.formData.content.postedDate = x.postedDate;
+      state.formData.content.lecturerName = x.lecturerName;
 
     } catch (error) {
       toast.error("Something Wrong", {position: POSITION.TOP_CENTER});
