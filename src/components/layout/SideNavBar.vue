@@ -1,11 +1,21 @@
 <script setup>
 import {RouterLink, useRoute} from "vue-router";
 import pathnames from "@/router/pathnames.js";
+import {ref} from "vue";
+
+const route = useRoute();
 
 const isActiveLink = (routePath) => {
-  const route = useRoute();
-  return !(route.path.indexOf(routePath)===-1);
+  if (!(route.path.indexOf(routePath) === -1)) {
+    return true;
+  } else return false;
 }
+
+const openAssignment = () => {
+  assignment.value = !assignment.value;
+}
+
+const assignment = ref(false)
 
 </script>
 
@@ -15,7 +25,7 @@ const isActiveLink = (routePath) => {
       aria-expanded="false">
     <div class="h-19">
       <RouterLink class="block px-9 py-6 m-0 text-sm whitespace-nowrap dark:text-white text-slate-700"
-         to="/" target="_blank">
+                  to="/" target="_blank">
         <img src="@/assets/img/graduate-cap.png"
              class="inline h-full max-w-full transition-all duration-200 dark:hidden ease-nav-brand max-h-8"
              alt="main_logo"/>
@@ -62,20 +72,58 @@ const isActiveLink = (routePath) => {
           </RouterLink>
         </li>
 
-        <li class="mt-0.5 w-full">
-          <RouterLink :to="pathnames.AssignmentView"
-                      :class="[
-                          isActiveLink(pathnames.AssignmentView)
-           ? 'bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand rounded-lg font-semibold text-slate-700 '
-           : 'dark:text-white dark:opacity-80 text-sm ease-nav-brand',
-            'py-2.7 my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors '
-           ]">
+        <li
+            :class="[
+            isActiveLink(pathnames.AssignmentView) ||  isActiveLink(pathnames.AssignmentSubmissionView)
+            ? 'bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand rounded-lg  text-slate-700 '
+            : 'dark:text-white dark:opacity-80 text-sm ease-nav-brand'
+           , 'py-2.7 my-0 mx-2 flex-col items-center whitespace-nowrap px-4 transition-colors '
+        ]">
+
+          <div
+              @click="openAssignment"
+              class="flex items-center">
             <div
                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
               <i class="relative top-0 text-sm leading-normal text-orange-500 pi pi-clipboard"></i>
             </div>
-            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Assignment</span>
-          </RouterLink>
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Assignments</span>
+          </div>
+
+          <ul v-if="assignment">
+            <li class="mt-0.5 w-full">
+              <RouterLink :to="pathnames.AssignmentView"
+                          :class="[
+                          isActiveLink(pathnames.AssignmentView)
+           ? 'bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand rounded-lg font-semibold text-slate-700 '
+           : 'dark:text-white dark:opacity-80 text-sm ease-nav-brand'
+           , 'py-2.7 my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors '
+           ]">
+                <div
+                    class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                  <i class="relative top-0 text-sm leading-normal text-orange-500 pi pi-pen-to-square"></i>
+                </div>
+                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Configure</span>
+              </RouterLink>
+            </li>
+
+            <li class="mt-0.5 w-full">
+              <RouterLink :to="pathnames.AssignmentSubmissionView"
+                          :class="[
+                          isActiveLink(pathnames.AssignmentSubmissionView)
+           ? 'bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand rounded-lg font-semibold text-slate-700 '
+           : 'dark:text-white dark:opacity-80 text-sm ease-nav-brand',
+            'py-2.7 my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors '
+           ]">
+                <div
+                    class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                  <i class="relative top-0 text-sm leading-normal text-orange-500 pi pi-clone"></i>
+                </div>
+                <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Submissions</span>
+              </RouterLink>
+            </li>
+          </ul>
+
         </li>
 
         <li class="mt-0.5 w-full">
@@ -85,7 +133,8 @@ const isActiveLink = (routePath) => {
            ? 'bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand rounded-lg font-semibold text-slate-700 '
            : 'dark:text-white dark:opacity-80 text-sm ease-nav-brand',
             'py-2.7 my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors '
-           ]">            <div
+           ]">
+            <div
                 class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center fill-current stroke-0 text-center xl:p-2.5">
               <i class="relative top-0 text-sm leading-normal text-emerald-500 pi pi-comments"></i>
             </div>

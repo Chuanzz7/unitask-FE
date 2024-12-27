@@ -39,11 +39,19 @@ const breadcrumbsItem = {
 	],
 	assignmentDetails: [
 		{ label: "Page", to: "/" },
-		{ label: "Assignment", to: pathnames.SubjectView },
+		{ label: "Assignment", to: pathnames.AssignmentView },
 	],
 	assignmentCreate: [
 		{ label: "Page", to: "/" },
-		{ label: "Assignment", to: pathnames.SubjectView },
+		{ label: "Assignment", to: pathnames.AssignmentView },
+	],
+	assignmentSubmission: [
+		{ label: "Page", to: "/" },
+		{ label: "Assignment", to: pathnames.AssignmentSubmissionView }
+	],
+	assignmentSubmissionDetails: [
+		{ label: "Page", to: "/" },
+		{ label: "Assignment", to: pathnames.AssignmentSubmissionView }
 	],
 	group: [
 		{ label: "Page", to: "/" },

@@ -22,6 +22,8 @@ import SubjectView from "@/views/subject/SubjectView.vue";
 import AssignmentView from "@/views/assignment/AssignmentView.vue";
 import AssignmentEditView from "@/views/assignment/AssignmentEditView.vue";
 
+import AssignmentSubmissionView from "@/views/assignment/AssignmentSubmissionView.vue";
+import AssignmentSubmissionDetailsView from "@/views/assignment/AssignmentSubmissionDetailsView.vue";
 
 import GroupView from "@/views/GroupView.vue";
 import TaskView from "@/views/TaskView.vue";
@@ -121,6 +123,16 @@ const router = createRouter({
                     path: pathnames.AssignmentView + "/update/:id",
                     name: "assignmentUpdate",
                     component: AssignmentEditView,
+                },
+                {
+                    path: pathnames.AssignmentSubmissionView,
+                    name: "assignmentSubmission",
+                    component: AssignmentSubmissionView,
+                },
+                {
+                    path: pathnames.AssignmentSubmissionView + "/:id",
+                    name: "assignmentSubmissionDetails",
+                    component: AssignmentSubmissionDetailsView,
                 },
                 {
                     path: pathnames.Group,
