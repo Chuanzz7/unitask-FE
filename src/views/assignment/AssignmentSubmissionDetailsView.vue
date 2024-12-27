@@ -4,7 +4,7 @@ import AppButton from "@/components/AppButton.vue";
 import {onMounted, reactive, ref} from "vue";
 import {apiClient, GET_ASSESSMENT_SUBMISSION, GRADE_ASSESSMENT, RESUBMIT_ASSESSMENT} from "@/api/index.js";
 import {POSITION, useToast} from "vue-toastification";
-import {useRoute, useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 import AssignmentSubmissionForm from "@/components/assignment/AssignmentSubmissionForm.vue";
 import AssignmentForm from "@/components/assignment/AssignmentForm.vue";
 
@@ -67,7 +67,8 @@ onMounted(() => {
 
 <template>
   <div class="flex-col w-full justify-items-center">
-    <AssignmentSubmissionForm class="my-5" :grade="grade" :loading="isLoading" v-model="formData.data"></AssignmentSubmissionForm>
+    <AssignmentSubmissionForm class="my-5" :grade="grade" :loading="isLoading"
+                              v-model="formData.data"></AssignmentSubmissionForm>
     <AssignmentForm back disabled v-model="formData.data.assessment"></AssignmentForm>
     <AppButton @click="resubmit" class="mb-5">Resubmit</AppButton>
   </div>

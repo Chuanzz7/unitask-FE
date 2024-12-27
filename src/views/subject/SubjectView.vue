@@ -64,7 +64,11 @@ const subjectApi = async (id) => {
       state.formData.content.color = x.color;
       state.formData.content.assessment = [];
       x.assessment.map((x) => {
-        state.formData.content.assessment.push({name: x.name, weightage: x.weightage});
+        state.formData.content.assessment.push({
+          name: x.name,
+          assignmentMode: x.assignmentMode,
+          weightage: x.weightage
+        });
       });
     } catch (error) {
       toast.error("Something Wrong", {position: POSITION.TOP_CENTER});

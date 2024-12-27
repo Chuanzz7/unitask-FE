@@ -50,7 +50,7 @@ const close = () => {
         <hr class="h-px mx-0 my-4 bg-transparent border-0 opacity-25 bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent "/>
 
         <div class="w-full flex flex-row justify-between">
-          <p class="flex leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Group Info</p>
+          <p class="flex leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Group Information</p>
         </div>
         <div v-for="(x, index) in model.groupMember" :key="index"
              class="flex flex-wrap -mx-3 -mb-3">

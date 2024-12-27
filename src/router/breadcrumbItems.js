@@ -41,6 +41,10 @@ const breadcrumbsItem = {
 		{ label: "Page", to: "/" },
 		{ label: "Assignment", to: pathnames.AssignmentView },
 	],
+	assignmentUpdate: [
+		{ label: "Page", to: "/" },
+		{ label: "Assignment", to: pathnames.AssignmentView },
+	],
 	assignmentCreate: [
 		{ label: "Page", to: "/" },
 		{ label: "Assignment", to: pathnames.AssignmentView },
@@ -58,6 +62,10 @@ const breadcrumbsItem = {
 		{ label: "Profile", to: pathnames.Profile },
 	],
 	group: [
+		{ label: "Page", to: "/" },
+		{ label: "Group", to: pathnames.Group },
+	],
+	groupDetails: [
 		{ label: "Page", to: "/" },
 		{ label: "Group", to: pathnames.Group },
 	],
