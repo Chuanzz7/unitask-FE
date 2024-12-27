@@ -3,7 +3,7 @@
 import BigLists from "@/components/big-list/Big-lists.vue";
 import {onMounted, reactive} from "vue";
 import pathnames from "@/router/pathnames.js";
-import {apiClient, LIST_ANNOUNCEMENT, LIST_ASSESSMENT, LIST_ASSESSMENT_SUBMISSION} from "@/api/index.js";
+import {apiClient, LIST_ASSESSMENT_SUBMISSION} from "@/api/index.js";
 import {POSITION} from "vue-toastification";
 import moment from "moment/moment.js";
 
@@ -54,14 +54,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full justify-items-center">
-    <div
-        class="relative w-full flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-      <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-        <h6 class="dark:text-white">Assignment Submission</h6>
-      </div>
-      <BigLists :route="pathnames.AssignmentSubmissionView" :header="tableHeader" :data="state.listData.content"></BigLists>
+  <div class="relative w-full flex flex-col justify-items-center min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+    <div class="flex p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+      <h5 :class="`relative top-0.5 leading-normal pi pi-clone text-orange-500 pr-2`"></h5>
+      <h5 class="mb-0 dark:text-white">Submissions</h5>
     </div>
+    <BigLists :route="pathnames.AssignmentSubmissionView" :header="tableHeader"
+              :data="state.listData.content"></BigLists>
   </div>
 </template>
 

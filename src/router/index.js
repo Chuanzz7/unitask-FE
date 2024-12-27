@@ -29,6 +29,8 @@ import GroupView from "@/views/GroupView.vue";
 import TaskView from "@/views/TaskView.vue";
 import DocumentView from "@/views/DocumentView.vue";
 
+import ProfileView from "@/views/ProfileView.vue";
+
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -133,6 +135,11 @@ const router = createRouter({
                     path: pathnames.AssignmentSubmissionView + "/:id",
                     name: "assignmentSubmissionDetails",
                     component: AssignmentSubmissionDetailsView,
+                },
+                {
+                    path: pathnames.Profile,
+                    name: "profile",
+                    component: ProfileView,
                 },
                 {
                     path: pathnames.Group,

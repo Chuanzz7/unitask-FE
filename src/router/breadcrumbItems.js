@@ -53,6 +53,10 @@ const breadcrumbsItem = {
 		{ label: "Page", to: "/" },
 		{ label: "Assignment", to: pathnames.AssignmentSubmissionView }
 	],
+	profile: [
+		{ label: "Page", to: "/" },
+		{ label: "Profile", to: pathnames.Profile },
+	],
 	group: [
 		{ label: "Page", to: "/" },
 		{ label: "Group", to: pathnames.Group },

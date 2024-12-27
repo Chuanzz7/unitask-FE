@@ -91,6 +91,7 @@ watch(
   <div class="h-full flex flex-wrap max-w-full pb-4 ">
     <SmallLists class="h-full flex-row flex-grow mx-3 mb-3 min-w-[30%] basis-[30%]" title="Assignment"
                 editable
+                title-icon="text-orange-500 pi-pen-to-square"
                 details-page="assignmentDetails"
                 update-page="assignmentUpdate"
                 v-model="state.search"

@@ -81,7 +81,9 @@ watch(
 
 <template>
   <div class="h-full flex flex-wrap max-w-full pb-4 ">
-    <SmallLists class="h-full flex-row flex-grow mx-3 mb-3 min-w-[30%] basis-[30%]" title="Announcement"
+    <SmallLists class="h-full flex-row flex-grow mx-3 mb-3 min-w-[30%] basis-[30%]"
+                title-icon="text-blue-500 pi-bell"
+                title="Announcement"
                 details-page="announcementDetails"
                 new-page="announcementCreate"
                 update-page="announcementUpdate"

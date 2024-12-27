@@ -10,6 +10,7 @@ const props = defineProps({
 	search: Function,
 	editable: Boolean,
 	title: String,
+  titleIcon: String,
 	detailsPage: String,
 	newPage: String,
 	updatePage: String,
@@ -52,7 +53,8 @@ const newId = () => {
 		<div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
 			<div class="flex flex-wrap -mx-3">
 				<div class="flex items-center flex-none w-1/2 max-w-full px-3">
-					<h5 class="mb-0 dark:text-white">{{ title }}</h5>
+          <h5 :class="`relative top-0.5 leading-normal pi ${titleIcon} pr-2`"></h5>
+          <h5 class="mb-0 dark:text-white">{{ title }}</h5>
 				</div>
 				<div class="flex w-1/2 max-w-full px-3 text-right">
 					<SearchBar :search="search" v-model="model"></SearchBar>

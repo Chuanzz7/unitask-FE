@@ -42,7 +42,7 @@ const onRowSelect = (row) => {
           :rowClass="rowClass"
           selectionMode="single"
           dataKey="id"
-          class="px-6 py-3 "
+          class="px-4 py-3 "
           table-style="width:100%"
           :value="data">
 
