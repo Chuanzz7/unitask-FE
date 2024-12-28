@@ -102,6 +102,10 @@ const deleteFile = async (file) => {
                      v-model="model.subject.code"></TextInput>
           <AppSelectInput :disabled="props.disabled" class="md:w-6/12" label="Assignment Mode"
                           v-model="model.assignmentMode" :options="state.options"></AppSelectInput>
+          <TextInput type="number" :disabled="props.disabled" class="md:w-6/12" label="Maximum Member"
+                     v-model="model.maxMember"></TextInput>
+          <DateInput :disabled="props.disabled" class="md:w-6/12" label="Start Date"
+                     v-model="model.startDate"></DateInput>
           <DateInput :disabled="props.disabled" class="md:w-6/12" label="Due Date"
                      v-model="model.dueDate"></DateInput>
           <TextArea :disabled="props.disabled" class="md:w-full" label="Lecturer Instruction"

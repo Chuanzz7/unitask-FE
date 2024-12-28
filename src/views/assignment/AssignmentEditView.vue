@@ -30,7 +30,9 @@ const update = async () => {
       name: formData.name,
       weightage: formData.weightage,
       assignmentMode: formData.assignmentMode,
+      maxMember:formData.maxMember,
       dueDate: formData.dueDate,
+      startDate: formData.startDate,
       lecturerInstruction: formData.lecturerInstruction,
       assessmentMarkingRubrics: formData.assessmentMarkingRubrics,
     };
@@ -59,6 +61,10 @@ const read = async (id) => {
       formData.assignmentMode = data.assignmentMode;
       if (data.dueDate != null) {
         formData.dueDate = new Date(data.dueDate);
+      }
+      formData.maxMember = data.maxMember;
+      if (data.startDate != null) {
+        formData.startDate = new Date(data.startDate);
       }
       formData.lecturerInstruction = data.lecturerInstruction;
       formData.assessmentMarkingRubrics = data.assessmentMarkingRubrics || [{}];

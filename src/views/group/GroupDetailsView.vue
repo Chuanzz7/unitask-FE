@@ -1,31 +1,43 @@
 <script setup>
 
 import {onMounted, reactive, ref} from "vue";
-import {useToast} from "vue-toastification";
+import {POSITION, useToast} from "vue-toastification";
 import {useRoute} from "vue-router";
 import GroupForm from "@/components/group/GroupForm.vue";
+import {apiClient} from "@/api/index.js";
+import {GET_GROUP} from "@/api/group.js";
 
 const toast = useToast();
 const route = useRoute();
 const isLoading = ref(true);
 const formData = reactive({
-  data:{
-    subject:{},
-    groupMembers:[{}]
+  option: [],
+  data: {
+    assessment: {
+      subject: {},
+    },
+    groupMembers: [{}]
   }
 });
 
 const readApi = async (id) => {
-  // if (id != null) {
-  //   try {
-  //     const response = await apiClient.get(`${GET_ASSESSMENT_SUBMISSION(id)}`);
-  //     isLoading.value = false;
-  //     formData.data = response.data;
-  //   } catch (error) {
-  //     toast.error("Something Wrong", {position: "top-center"});
-  //   }
-  // }
+  if (id != null) {
+    try {
+      const response = await apiClient.get(`${GET_GROUP(id)}`);
+      isLoading.value = false;
+      formData.data = response.data;
+    } catch (error) {
+      toast.error("Something Wrong", {position: POSITION.TOP_CENTER});
+    }
+  }
 };
+
+const studentOption = async (id) => {
+  try {
+
+  } catch (error) {
+  }
+}
 
 onMounted(() => {
   readApi(route.params.id);
@@ -36,7 +48,7 @@ onMounted(() => {
 
 <template>
   <div class="h-screen_content px-6">
-    <GroupForm class="my-5" :loading="isLoading" v-model="formData.data"></GroupForm>
+    <GroupForm disabled="" class="my-5" :loading="isLoading" v-model="formData.data"></GroupForm>
   </div>
 </template>
 

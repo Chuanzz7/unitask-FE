@@ -58,6 +58,10 @@ const assignmentApi = async (id) => {
       state.formData.content.weightage = data.weightage;
       state.formData.content.subject = subject;
       state.formData.content.assignmentMode = data.assignmentMode;
+      state.formData.content.maxMember = data.maxMember;
+      if (data.startDate != null) {
+        state.formData.content.startDate = new Date(data.startDate);
+      }
       if (data.dueDate != null) {
         state.formData.content.dueDate = new Date(data.dueDate);
       }

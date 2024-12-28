@@ -2,7 +2,7 @@
 
 import AppButton from "@/components/AppButton.vue";
 import {onMounted, reactive, ref} from "vue";
-import {apiClient, GET_ANNOUNCEMENT, PUT_ASSESSMENT} from "@/api/index.js";
+import {apiClient, GET_ANNOUNCEMENT, PUT_ANNOUNCEMENT} from "@/api/index.js";
 import {POSITION, useToast} from "vue-toastification";
 import {useRoute, useRouter} from "vue-router";
 import pathnames from "@/router/pathnames.js";
@@ -26,7 +26,7 @@ const update = async () => {
       description: formData.description,
       subjectId: formData.subjectId,
     };
-    const response = await apiClient.put(`${PUT_ASSESSMENT}${formData.id}`, payload);
+    const response = await apiClient.put(`${PUT_ANNOUNCEMENT}${formData.id}`, payload);
     if (response.status === 200) {
       toast.success("Successfully Updated!", {position: POSITION.TOP_CENTER});
     }

@@ -1,15 +1,16 @@
 <script setup>
 
-import {useRouter} from "vue-router";
 import {onMounted, reactive} from "vue";
 import pathnames from "@/router/pathnames.js";
 import BigLists from "@/components/big-list/Big-lists.vue";
+import {LIST_GROUP} from "@/api/group.js";
+import {apiClient} from "@/api/index.js";
+import {POSITION} from "vue-toastification";
 
-const router = useRouter();
 const tableHeader = [{name: 'Subject Code', field: 'subjectCode', width: 20},
   {name: 'Assignment', field: 'assignmentName', width: 30},
   {name: 'Group', field: 'groupName', width: 30},
-  {name: "Members Number", field: 'membersNumber', width: 15},
+  {name: "Members Number", field: 'memberCount', width: 15},
 ]
 
 const state = reactive({
@@ -18,29 +19,31 @@ const state = reactive({
   search: "",
 });
 
+
 const listingApi = async () => {
-  state.listData.content = [{subjectCode: "A", assignmentName: "A", groupName: "A", membersNumber: "1"},]
-  // try {
-  //   const response = await apiClient.get(LIST_GROUP, {
-  //     params: {
-  //       page: 1,
-  //       pageSize: 10,
-  //       search: state.search,
-  //     }
-  //   });
-  //   state.listData.isLoading = false;
-  //   state.listData.content = [];
-  //   response.data.content.map((item) => {
-  //     state.listData.content.push({
-  //       id: item.id,
-  //       name: item.name,
-  //       description: item.description,
-  //     });
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  //   toast.error("Something went wrong", {position: POSITION.TOP_CENTER})
-  // }
+  try {
+    const response = await apiClient.get(LIST_GROUP, {
+      params: {
+        page: 1,
+        pageSize: 10,
+        search: state.search,
+      }
+    });
+    state.listData.isLoading = false;
+    state.listData.content = [];
+    response.data.content.map((x) => {
+      state.listData.content.push({
+        id: x.id,
+        subjectCode: x.subjectCode,
+        assignmentName: x.assignmentName,
+        groupName: x.groupName,
+        memberCount: x.memberCount
+      });
+    });
+  } catch (error) {
+    console.log(error);
+    toast.error("Something went wrong", {position: POSITION.TOP_CENTER})
+  }
 };
 onMounted(() => {
   listingApi();
