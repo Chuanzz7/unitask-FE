@@ -5,7 +5,7 @@ import {POSITION, useToast} from "vue-toastification";
 import {useRoute} from "vue-router";
 import GroupForm from "@/components/group/GroupForm.vue";
 import {apiClient} from "@/api/index.js";
-import {GET_GROUP, GET_STUDENT_ASSESSMENT} from "@/api/group.js";
+import {GET_GROUP, GET_STUDENT_ASSESSMENT, PUT_GROUP} from "@/api/group.js";
 import AppButton from "@/components/AppButton.vue";
 
 const toast = useToast();
@@ -15,6 +15,9 @@ const formData = reactive({
   option: [],
   data: {
     name: "",
+    description: "",
+    openForPublic: false,
+    locked: false,
     assessment: {
       subject: {},
     },
@@ -43,14 +46,27 @@ const studentOption = async (id) => {
       value: x.id,
       label: x.name,
     }));
-    console.log(formData.option)
   } catch (error) {
     toast.error("Something Wrong", {position: POSITION.TOP_CENTER});
   }
 }
 
-const update = async (id) => {
-
+const update = async () => {
+  try {
+    let payload = {
+      name: formData.data.name,
+      description: formData.data.description,
+      openForPublic: formData.data.openForPublic,
+      locked: formData.data.locked,
+      members: [],
+    }
+    formData.data.groupMembers.forEach(x => payload.members.push(x.id))
+    console.log(payload)
+    await apiClient.put(`${PUT_GROUP(formData.data.id)}`, payload);
+    toast.success("Updated Successfully", {position: POSITION.TOP_CENTER});
+  } catch (error) {
+    toast.error("Something Wrong", {position: POSITION.TOP_CENTER});
+  }
 }
 
 

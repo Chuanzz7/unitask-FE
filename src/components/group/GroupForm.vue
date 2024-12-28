@@ -5,6 +5,7 @@ import TextInput from "@/components/form/TextInput.vue";
 import pathnames from "@/router/pathnames.js";
 import AppSelectInput from "@/components/form/AppSelectInput.vue";
 import ToggleInput from "@/components/form/ToggleInput.vue";
+import TextArea from "@/components/form/TextArea.vue";
 
 const router = useRouter();
 const props = defineProps({
@@ -52,7 +53,9 @@ const removeMember = (index) => {
           <TextInput disabled class="md:w-6/12" label="Group Name"
                      v-model="data.name"></TextInput>
           <ToggleInput disabled class="md:w-6/12" label="Open For Public"
-                     v-model="data.assessment.openForPublic"></ToggleInput>
+                       v-model="data.openForPublic"></ToggleInput>
+          <TextArea disabled class="md:w-full" label="Description"
+                    v-model="data.description"></TextArea>
           <TextInput disabled class="md:w-6/12" label="Subject Name"
                      v-model="data.assessment.subject.name"></TextInput>
           <TextInput disabled class="md:w-6/12" label="Subject Code"
@@ -68,7 +71,7 @@ const removeMember = (index) => {
         <div>
           <div class="w-full flex flex-row justify-between">
             <p class="flex leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Group Member</p>
-            <button v-if="!(props.disabled)" class="flex pr-14 font-semibold text-blue-500"
+            <button v-if="!(data.locked)" class="flex pr-14 font-semibold text-blue-500"
                     @click="addMember() ">
               <i class=" text-lg pi pi-plus py-1 mr-1"></i>
               <span>Add</span>
@@ -76,16 +79,23 @@ const removeMember = (index) => {
           </div>
           <div v-for="(x, index) in data.groupMembers" :key="index"
                class="flex flex-wrap -mx-3 -mb-3 justify-between">
-            <AppSelectInput :disabled="props.disabled" v-model="x.id" class="md:w-8/12"
+            <AppSelectInput :disabled="data.locked" v-model="x.id" class="md:w-8/12"
                             :options="option"
                             :label="'Member ' + (index+1) "></AppSelectInput>
-            <div v-if="!(props.disabled)" class="flex justify-end md:w-2/12 py-10 mr-14 font-semibold text-blue-500 ">
-              <button @click="removeMember(index)">
+            <div class="flex justify-end md:w-2/12 py-10 mr-14 font-semibold text-blue-500 ">
+              <button  v-if="!(data.locked)" @click="removeMember(index)">
                 <i class="text-lg pi pi-trash my-1 mr-1"></i>
                 <span>Delete</span>
               </button>
             </div>
           </div>
+        </div>
+
+        <hr class="h-px mx-0 my-4 bg-transparent border-0 opacity-25 bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent "/>
+        <p class="flex leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Group Lock</p>
+
+        <div class="flex flex-wrap -mx-3">
+          <ToggleInput class="md:w-6/12" label="Locked" v-model="data.locked"></ToggleInput>
         </div>
 
         <hr class="h-px mx-0 my-4 bg-transparent border-0 opacity-25 bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent "/>

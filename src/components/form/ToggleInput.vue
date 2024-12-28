@@ -20,10 +20,8 @@ const toggle = defineModel()
              dark:text-white/80">{{ label }}</label>
       <div class="w-full flex flex-row px-3 py-2">
         <span class="text-sm text-gray-700  flex pr-2">No</span>
-        <input disabled type="checkbox"
+        <input :disabled="disabled" type="checkbox"
                v-model="toggle"
-               true-value="true"
-               false-value="false"
                :class="[disabled
                ? 'after:bg-gray-500'
                : 'cursor-pointer after:bg-white'
