@@ -18,6 +18,8 @@ const formData = reactive({
   weightage: "",
   assignmentMode: "",
   dueDate: new Date(),
+  startDate: new Date(),
+  maxMember:0,
   lecturerInstruction: "",
   assessmentMarkingRubrics: [{}],
   attachedDocument: [],

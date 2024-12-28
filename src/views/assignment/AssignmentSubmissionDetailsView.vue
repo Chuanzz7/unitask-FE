@@ -67,7 +67,7 @@ onMounted(() => {
 
 <template>
   <div class="flex-col w-full justify-items-center">
-    <AssignmentSubmissionForm class="my-5" :grade="grade" :loading="isLoading"
+    <AssignmentSubmissionForm class="mb-5" :grade="grade" :loading="isLoading"
                               v-model="formData.data"></AssignmentSubmissionForm>
     <AssignmentForm back disabled v-model="formData.data.assessment"></AssignmentForm>
     <AppButton @click="resubmit" class="mb-5">Resubmit</AppButton>
