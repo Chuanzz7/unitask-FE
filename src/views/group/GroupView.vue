@@ -5,8 +5,9 @@ import pathnames from "@/router/pathnames.js";
 import BigLists from "@/components/big-list/Big-lists.vue";
 import {LIST_GROUP} from "@/api/group.js";
 import {apiClient} from "@/api/index.js";
-import {POSITION} from "vue-toastification";
+import {POSITION, useToast} from "vue-toastification";
 
+const toast = useToast
 const tableHeader = [{name: 'Subject Code', field: 'subjectCode', width: 20},
   {name: 'Assignment', field: 'assignmentName', width: 30},
   {name: 'Group', field: 'groupName', width: 30},
