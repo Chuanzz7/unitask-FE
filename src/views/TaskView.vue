@@ -5,7 +5,7 @@ import SmallHorizontalNav from "@/components/SmallHorizontalNav.vue";
 import AddTask from "@/components/task/AddTask.vue";
 import Task from "@/components/task/Task.vue";
 import {apiClient} from "@/api/index.js";
-import {CHECK_TASK, LIST_GROUP_TASK, LIST_TASK} from "@/api/task.js";
+import {CHECK_TASK, LIST_GROUP_TASK, LIST_TASK, UNCHECK_TASK} from "@/api/task.js";
 
 const active = ref(false);
 const state = reactive({
@@ -15,12 +15,13 @@ const state = reactive({
 });
 
 const checkTask = async (index, id) => {
-  const response = await apiClient.post(CHECK_TASK())
+  const response = await apiClient.post(CHECK_TASK(id));
   state.completedTask.push(state.todoTask[index]);
   state.todoTask.splice(index, 1);
 }
 
-const uncheckTask = async (index, id)=> {
+const uncheckTask = async (index, id) => {
+  const response = await apiClient.post(UNCHECK_TASK(id));
   state.todoTask.push(state.completedTask[index]);
   state.completedTask.splice(index, 1);
 }
