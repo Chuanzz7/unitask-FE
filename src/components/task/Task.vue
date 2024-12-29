@@ -25,8 +25,8 @@ const props = defineProps({
         <div v-if="group === 'GROUP'"
              class="flex text-center align-middle items-center text-sm leading-normal transition-all bg-transparent border-0 ease-in bg-150 rounded-lg  dark:text-white/80">
             <span
-                class="dark:text-white ml-3 font-bold uppercase text-sm active:opacity-85 tracking-tight-rem bg-x-25 text-slate-700">
-              {{data.assignedName}}</span>
+                :class="[check? 'line-through text-gray-600' :'text-slate-700'  ,'ml-3 font-bold uppercase text-sm active:opacity-85 tracking-tight-rem bg-x-25 ']">
+              {{ data.assignedName }}</span>
         </div>
       </div>
     </div>

@@ -6,6 +6,8 @@ import TextArea from "@/components/form/TextArea.vue";
 import {onMounted, reactive, watch} from "vue";
 import {apiClient, LIST_ASSESSMENT} from "@/api/index.js";
 import {POSITION, useToast} from "vue-toastification";
+import {GET_MEMBER} from "@/api/group.js";
+import {ADD_TASK} from "@/api/task.js";
 
 const toast = useToast()
 const props = defineProps({
@@ -23,13 +25,28 @@ const data = reactive({
 
 const model = defineModel()
 
-const addTask = () => {
-  model.value.push({
-    task: data.task,
-    assignmentName: data.assignmentId ? data.assignmentOption.find(item => item.value === data.assignmentId).label : null,
-    assignedName: data.memberId ? data.memberOption.find(item => item.value === data.memberId).label : null,
-  });
+const addTask = async () => {
 
+  try {
+    const payload = {
+      name: data.task,
+      assignmentId: data.assignmentId,
+      assignedId: data.memberId,
+    }
+    const response = await apiClient.post(ADD_TASK, payload);
+    model.value.push({
+      id: response.data.id,
+      task: response.data.name,
+      assignmentName: response.data.assessmentName,
+      assignedName: response.data.userName,
+    });
+
+  } catch (error) {
+    console.log(error);
+    toast.error("Something Wrong", {position: POSITION.TOP_CENTER});
+  }
+
+  data.task = ""
   data.assignmentId = null
   data.memberId = null
 }
@@ -57,9 +74,22 @@ const assignmentApi = async () => {
   }
 };
 
-const memberApi = () => {
-  console.log("halo")
+const memberApi = async (newId) => {
   data.memberOption = []
+  if (newId != null && props.group === 'GROUP') {
+    try {
+      const response = await apiClient.get(GET_MEMBER(newId));
+      response.data.map((x) => {
+        data.memberOption.push({
+          value: x.id,
+          label: x.name,
+        });
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Something Wrong", {position: POSITION.TOP_CENTER});
+    }
+  }
 }
 
 onMounted(() => {
@@ -107,11 +137,7 @@ watch(
         <span>Add</span>
       </button>
     </div>
-
-
   </div>
-
-
 </template>
 
 <style scoped>
