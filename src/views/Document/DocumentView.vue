@@ -1,8 +1,7 @@
 <script setup>
 
-import BigLists from "@/components/big-list/Big-lists.vue";
 import { apiClient } from "@/api/index.js";
-import { DOWNLOAD_DOCUMENT, LIST_DOCUMENT } from "@/api/document.js";
+import { LIST_DOCUMENT } from "@/api/document.js";
 import { POSITION } from "vue-toastification";
 import { onMounted, reactive } from "vue";
 import pathnames from "@/router/pathnames.js";
@@ -98,7 +97,8 @@ onMounted(() => {
 			<div class="mt-6 flex justify-center">
 				<button @click="listingApi" class="px-4 py-2 bg-blue-500 text-white rounded-md">Search</button>
 			</div>
-			<DocumentList :route="pathnames.Document" :header="tableHeaders" :data="state.listData.content" :editable="false" :downloadable="true">
+			<DocumentList :route="pathnames.Document" :header="tableHeaders" :data="state.listData.content"
+						  :editable="false" :downloadable="true">
 			</DocumentList>
 		</div>
 	</div>
