@@ -31,6 +31,7 @@ import DocumentView from "@/views/Document/DocumentView.vue";
 
 import ProfileView from "@/views/ProfileView.vue";
 import GroupDetailsView from "@/views/group/GroupDetailsView.vue";
+import GroupCreateView from "@/views/group/GroupCreateView.vue";
 
 
 const router = createRouter({
@@ -151,6 +152,11 @@ const router = createRouter({
                     path: pathnames.Group + "/:id",
                     name: "groupDetails",
                     component: GroupDetailsView,
+                },
+                {
+                    path: pathnames.Group + "/create",
+                    name: "groupCreate",
+                    component: GroupCreateView,
                 },
                 {
                     path: pathnames.Task,

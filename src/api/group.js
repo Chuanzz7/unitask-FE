@@ -12,3 +12,7 @@ export const PUT_GROUP = (id) => {
 export const GET_STUDENT_ASSESSMENT = (id) => {
     return `/group/studentAssignmentDropdown/${id}`
 };
+
+export const CREATE_CROUP = "/group/create";
+
+export const GROUP_ASSESSMENT = "/assessment/list";

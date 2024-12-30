@@ -26,7 +26,6 @@ const rowClass = () => {
 };
 
 const onRowSelect = (row) => {
-  console.log(row)
   router.push(props.route + '/' + row.data.id);
 }
 
