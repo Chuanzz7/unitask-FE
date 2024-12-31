@@ -88,12 +88,12 @@ const close = () => {
 						<span>Add</span>
 					</button>
 				</div>
-				<div v-for="(assessment, index) in model.assessment" :key="index" class="flex flex-wrap -mx-3 -mb-3">
-					<TextInput :disabled="props.disabled" v-model="assessment.name" class="md:w-4/12"
+				<div v-for="(x, index) in model.assessment" :key="index" class="flex flex-wrap -mx-3 -mb-3">
+					<TextInput :disabled="props.disabled" v-model="x.name" class="md:w-4/12"
 							   :label="'Assessment ' + (index+1) "></TextInput>
 					<AppSelectInput :disabled="props.disabled" class="md:w-4/12" label="Mode"
-									v-model="assessment.assignmentMode" :options="state.options"></AppSelectInput>
-					<TextInput :disabled="props.disabled" v-model="assessment.weightage" class="md:w-3/12"
+									v-model="x.assignmentMode" :options="state.options"></AppSelectInput>
+					<TextInput :disabled="props.disabled" v-model="x.weightage" class="md:w-3/12"
 							   :label="'Weightage ' + (index+1)"></TextInput>
 					<div v-if="!(props.disabled)" class="md:w-1/12 py-10 font-semibold text-blue-500 ">
 						<button @click="removeAssessment(index)">
