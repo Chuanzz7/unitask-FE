@@ -72,11 +72,9 @@ const close = () => {
           <div class="flex flex-col md:w-6/12">
             <FileInput
                 :caseId="model.id"
-                :upload-api="PUT_ASSESSMENT_FILE"
-                :delete-api="DELETE_ASSESSMENT_FILE"
                 disabled
                 label="Submitted Document"
-                v-model="model.attachedDocument"></FileInput>
+                v-model="model.submittedDocuments"></FileInput>
           </div>
         </div>
       </div>

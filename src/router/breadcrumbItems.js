@@ -1,10 +1,6 @@
 import pathnames from "./pathnames";
 
 const breadcrumbsItem = {
-	dashboard: [
-		{ label: "Page", to: "/" },
-		{ label: "Dashboard", to: pathnames.DashboardView },
-	],
 	announcement: [
 		{ label: "Page", to: "/" },
 		{ label: "Announcement", to: pathnames.AnnouncementView },
