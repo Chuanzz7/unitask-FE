@@ -29,7 +29,8 @@ const formData = reactive({
 });
 
 const update = async () => {
-  try {
+  console.log(formData);
+	try {
     const payload = {
       code: formData.code,
       name: formData.name,
@@ -47,8 +48,10 @@ const update = async () => {
     };
 
     formData.assessment.map((x) => {
-      payload.assessment.push({id: x.id, name: x.name, weightage: x.weightage});
+      payload.assessment.push({id: x.id, name: x.name, assignmentMode: x.assignmentMode, weightage: x.weightage});
     });
+
+	console.log(payload);
 
     const response = await apiClient.put(`${PUT_SUBJECT}${formData.id}`, payload);
     if (response.status === 200) {
